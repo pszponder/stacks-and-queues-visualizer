@@ -156,9 +156,9 @@ Below is a list of properties and methods that a queue can contain. Keep in mind
   - `getFront` is traditionally a pointer to the "head" (the front) of the queue
   - When this method is called, the value at the front of the queue is returned
   - Data at the front of the queue is the oldest data and will be next to be removed using the `dequeue` method.
-- `getLast`
+- `getBack`
   - Unlike the peek method of the stack, queues have 2 methods to look at both ends of the queue for the first and last piece of information entered into the stack.
-  - `getLast` is traditionally a pointer to the "tail" (the back) of the queue
+  - `getBack` is traditionally a pointer to the "tail" (the back) of the queue
   - When this method is called, the value at the back of the queue is returned
   - Data at the back of the queue is the newest data and is added by the `enqueue` method
   - This data needs to wait for all of the data in front of it before it can get dequeued
@@ -200,7 +200,7 @@ With that in mind, let's consider the basic functionality of a stack / queue and
 - O(1)
 - NOTE: for `enqueue`, if the queue is implemented using an array, you could end up with O(n) if you are shifting the indexes of all of the items in front of the newest value to insert data
 
-`peek` and `getLast` or `getFirst`: (retrieving value at the front (or top) or the end of the stack/queue)
+`peek` and `getBack` or `getFirst`: (retrieving value at the front (or top) or the end of the stack/queue)
 
 - O(1)
 
