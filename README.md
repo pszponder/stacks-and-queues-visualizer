@@ -51,7 +51,7 @@ Below is a list of properties and methods that a stack can contain. Keep in mind
 - `top`
   - This property either contains the value or a pointer to the value of the piece of data that is at the top of the stack
   - This data represents the most recent item appended to the stack which hasn't been removed
-  - When the stack is initialized, `top` can be declared as `undefined` as there is no data in the stack upon initialization
+  - When the stack is initialized, `top` can be set as `undefined` (or -1) as there is no data in the stack upon initialization
 - `maxSize`
   - As with anything in computer science, memory is not unlimited
   - There are limits to how much memory a stack is allocated which directly affects how much data the stack can hold at one point
@@ -65,18 +65,18 @@ Below is a list of properties and methods that a stack can contain. Keep in mind
 - `push`
   - This is the stack's insert method
   - Information is "pushed" onto the stack using this method
-  - Following LIFO, newer information is pushed on top of older information
+  - Following LIFO, newer data is pushed on top of older data
 - `pop`
   - This is the stack's delete method
   - Information is "popped" off (removed) of the stack
-  - Following LIFO, newer information is popped off first
+  - Following LIFO, newer data is popped off first
 - `peek`
   - This method allows us to see which piece of data is on top of the stack
   - The method returns the value of the `top` property
   - If we know which data is on top of the stack, we also know which piece of data will be removed from the stack next when the `pop` method is called
 - `isEmpty`
   - This method returns true if the stack is empty (there isn't any information stored in the stack) and returns false otherwise
-  - We need to know when the stack is empty so that we don't try to pop off additional information to the stack
+  - We need to know when the stack is empty so that we don't try to pop off additional information from the stack
     - If we do try to remove information from an empty stack, we should get a "stack underflow" error
 - `isFull`
   - This is the opposite of the `isEmpty` method
@@ -88,31 +88,8 @@ Below is a list of properties and methods that a stack can contain. Keep in mind
 - `clear`
   - This function resets the properties of the stack as if it were re-initialized as an empty stack
     - Resets `data` to be empty
-    - Resets `top` to be `undefined`
+    - Resets `top` to be `undefined` (or -1)
     - Resets `size` to be 0
-
-### Big-O Analysis of a Stack:
-
-Stacks are really meant just for storing, adding and removing pieces of data in a LIFO order.
-With that in mind, let's consider the basic functionality of a stack and the associated Big-O time complexity.
-
-`pop`: (insertion)
-
-- O(1)
-
-`push`: (removal)
-
-- O(1)
-
-`peek`: (retrieving value of top value on stack)
-
-- O(1)
-
-The speed at which we can search and access values in the stack is dependent on how the stack is implemented:
-
-- If the stack is implemented with an array, searching and access is O(1) since arrays are indexed.
-- If the stack is implemented with a linked list, searching and access is O(n) since you would have to traverse through each node in the linked list to get to the desired element.
-- **NOTE**: Stacks are not designed to be searched for data other than what is currently at the top of the stack.
 
 ### Where are Stacks Used in the Real World?
 
@@ -145,26 +122,97 @@ Below is a list of properties and methods that a queue can contain. Keep in mind
 ### Common Properties of a Queue:
 
 - `data`
+  - The `data` property is what actually holds all the pieces of data that the queue collects
+  - `data` can be modeled as an array or using a linked list
+  - If using an array to model the queue, `data` is an empty list when the queue is initialized
 - `head`
+  - This property either contains the value or a pointer to the value of the piece of data that is at the front of the queue
+  - This data represents the oldest data inserted into the queue
+  - When the queue is initialized, `head` can be set to 'undefined' (or -1) as there is no data in the queue upon initialization
 - `tail`
+  - This property either contains the value or a pointer to the value of the piece of data that is at the back of the queue
+  - This data represents the newest data inserted into the queue
+  - When the queue is initialized, `tail` can be set to `undefined` (or -1) as there is no data in the queue upon initialization
+- `maxSize`
+  - As with anything in computer science, memory is not unlimited
+  - There are limits to how much memory a queue is allocated which directly affects how much data the queue can hold at one point
+  - `maxSize` represents to maximum number of elements a particular queue can hold
 - `size`
+  - The `size` property holds the current number of elements (pieces of data) in the queue
+  - When the queue is initialized, the `size` is 0
 
 ### Common Methods of a Queue:
 
 - `enqueue`
+  - This is the queue's insert method
+  - Information is inserted into the stack at the "tail" (back) end of the queue
+  - Following FIFO, newer data is pushed behind older data
 - `dequeue`
+  - This is the queue's delete method
+  - Information is removed from the queue at the "head" (front) of the queue
+  - Following FIFO, older data is removed first
 - `getFront`
+  - Unlike the peek method of the stack, queues have 2 methods to look at both ends of the queue for the first and last piece of information entered into the stack.
+  - `getFront` is traditionally a pointer to the "head" (the front) of the queue
+  - When this method is called, the value at the front of the queue is returned
+  - Data at the front of the queue is the oldest data and will be next to be removed using the `dequeue` method.
 - `getLast`
-- `length`
+  - Unlike the peek method of the stack, queues have 2 methods to look at both ends of the queue for the first and last piece of information entered into the stack.
+  - `getLast` is traditionally a pointer to the "tail" (the back) of the queue
+  - When this method is called, the value at the back of the queue is returned
+  - Data at the back of the queue is the newest data and is added by the `enqueue` method
+  - This data needs to wait for all of the data in front of it before it can get dequeued
 - `isEmpty`
+  - This method returns true if the queue is empty (there isn't any information stored in the queue) and returns false otherwise
+  - We need to know when the queue is empty so that we don't try to dequeue any additional information from the queue
+    - If we do try to remove information from an empty queue, we should get a "queue underflow" error
 - `isFull`
+  - This is the opposite of the `isEmpty` method
+  - This method returns true if the queue is full (maxSize has been reached) and returns false otherwise
+  - We need to know when the queue is full so that we don't try to push on additional to the queue
+    - If we try to add additional information onto a queue that is full, we should get a "queue overflow" error
+- `length`
+  - This method should return the total number of elements / pieces of data in the queue
 - `clear`
-
-### Big-O Analysis of a Queue:
+  - This function resets the properties of the queue as if it were re-initialized as an empty queue
+    - Resets `data` to be empty
+    - Resets `head` to be `undefined` (or -1)
+    - Resets `tail` to be `undefined` (or -1)
+    - Resets `size` to be 0
 
 ### Where are Queues Used in the Real World?
+
+- Call centers use queue systems to hold people calling them in order
+- download and upload of information from a client and a server
+
+## Big-O Analysis of a Stacks and Queues:
+
+Stacks and queues are really meant just for storing, adding and removing pieces of data in a LIFO or FIFO order.
+With that in mind, let's consider the basic functionality of a stack / queue and the associated Big-O time complexity.
+
+`pop` and `dequeue`: (insertion)
+
+- O(1)
+- NOTE: for `dequeue`, if the queue is implemented using an array, you could end up with O(n) if you are shifting the indexes of all of the items in front of the newest value to remove data
+
+`push` and `enqueue`: (removal)
+
+- O(1)
+- NOTE: for `enqueue`, if the queue is implemented using an array, you could end up with O(n) if you are shifting the indexes of all of the items in front of the newest value to insert data
+
+`peek` and `getLast` or `getFirst`: (retrieving value at the front (or top) or the end of the stack/queue)
+
+- O(1)
+
+The speed at which we can search and access values in the stack or queue is dependent on how the data structures are implemented:
+
+- If the stack or queue are implemented with an array, searching and access is O(1) since arrays are indexed.
+- If the stack or queue are implemented with a linked list, searching and access is O(n) since you would have to traverse through each node in the linked list to get to the desired element.
+- **NOTE**: Stacks are not designed to be searched for data other than what is currently at the top of the stack.
 
 ## References:
 
 - [Stack Data Structure - GeeksforGeeks](https://www.geeksforgeeks.org/stack-data-structure/?ref=ghm)
+- [Stack Data Structure](https://www.programiz.com/dsa/stack)
 - [Queue Data Structure - GeeksforGeeks](https://www.geeksforgeeks.org/queue-data-structure/?ref=ghm)
+- [Queue Data Structure](https://www.programiz.com/dsa/queue)
