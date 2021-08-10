@@ -1,4 +1,4 @@
-// Build your stack class here.
+// Initialize Stack class
 class Stack {
   // Declare private instance members using "#"
   #array;
@@ -9,8 +9,8 @@ class Stack {
   // Initialize constructor function for Stack class
   constructor() {
     this.#array = []; // Initialize empty array to store values for Stack class
-    this.#top = undefined; // Initialize top parameter which is the last value added to the stack
-    this.#maxSize = 1000; // Initialize a max size of the stack (can't have more than maxSize elements in stack)
+    this.#top = -1; // Initialize top parameter which is the last value added to the stack
+    this.#maxSize = 10; // Initialize a max size of the stack (can't have more than maxSize elements in stack)
     this.#size = 0; // Initialize size of stack, it is 0 initially since it is empty
   }
 
@@ -21,7 +21,7 @@ class Stack {
   push(...args) {
     // Iterate through each argument and insert it onto the stack
     for (const element of args) {
-      // Check if maxSize has not been achieved;
+      // Check if stack is full
       // if it has, throw a stack overflow error
       if (this.isFull()) {
         throw new Error("Stack Overflow: Cannot push more values onto stack.");
@@ -58,7 +58,13 @@ class Stack {
     this.#size--;
 
     // Update the value of top parameter
-    this.#top = this.#array[this.#size - 1];
+    if (this.#size === 0) {
+      // If no elements in the stack, reset top to -1
+      this.#top = -1;
+    } else {
+      // Otherwise, update top to represent the current value at the top of the stack
+      this.#top = this.#array[this.#size - 1];
+    }
 
     return this;
   }
@@ -92,7 +98,7 @@ class Stack {
   }
 
   // Initialize the print instance method
-  // print is a static utility function which prints the properties of the stack instance
+  // print is a utility function which prints the properties of the stack instance
   print() {
     console.log("Stack:", this.#array);
     console.log("Top:", this.#top);
@@ -104,6 +110,6 @@ class Stack {
   clear() {
     this.#array = [];
     this.#size = 0;
-    this.#top = undefined;
+    this.#top = -1;
   }
 }
